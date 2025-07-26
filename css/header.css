@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.header{
+    display: flex;
+    align-items: center;
+    background: #151515;
+    color: white;
+    height: 50px;
+    padding: 10px;
+}
+
+.header__container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__brand{
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  /* font-style: normal; */
+}
+
+.header__brand a{
+    color: white;
+    text-decoration: none;
+}
+
+/* main nav */
+.header__nav{
+    text-transform: capitalize;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
+
+.header__nav-list{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    list-style: none;
+}
+
+.header__nav-listItem{
+    margin-left: 30px;
+}
+
+.header__nav-listItem a{
+    color: white;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: all 1s ease-in-out;
+}
+
+.header__nav-listItem a:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.header__nav-toggler{
+    display: none;
+}
+.menu-toggler{
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* theme toggler */
+.header__toggle-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50px;
+    height: 30px;
+    border-radius: 30px;
+    background: white;
+    position: relative;
+}
+
+.toggle-icon{
+    color: goldenrod;
+}
+
+.toggle-ball{
+    width: 25px;
+    height: 28px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    transition: all 1s ease-in-out;
+    /* top: 0; */
+}
+
+
+/* light theme */
+.header.light{
+    background: white;
+    color: black;
+}
+
+.header.light .header__brand a{
+    color: black;
+}
+
+.header.light .header__nav-listItem a{
+    color: #151515;
+}
+
+.header.light .header__toggle-container{
+    background: black;
+}
+
+.header.light .toggle-ball{
+    background: white;
+}
+.header.light .menu-toggler{
+    color: black;
+}
+
+.header.light  .toggle-ball{
+    transform: translateX(-25px);
+    /* left: 0; */
+}
+
+/* media */
+@media screen and (max-width: 768px) {
+    .header__nav{
+        display: none;
+    }
+
+    .header__nav-toggler{
+        display: block;
+    }
+}

@@ -5,8 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Library App</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/06ca502914.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <header class="header">
+        <div class="header__container">
+            <div class="header__nav-toggler">
+                <i class="fa-solid fa-bars menu-toggler"></i>
+            </div>
+
+            <div class="header__brand">
+                <h2><a href="#">Avd@LiveTv</a></h2>
+            </div>
+
+            <!--  -->
+            <div class="header__nav">
+                <nav class="header__nav-main">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-listItem"><a href="">home</a></li>
+                        <li class="header__nav-listItem"><a href="">new</a></li>
+                        <li class="header__nav-listItem"><a href="">favorite</a></li>
+                        <li class="header__nav-listItem"><a href="">recently watched</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!--  -->
+            <div class="header__profile">
+                <div class="header__toggle-container">
+                    <i class="fa-solid fa-moon toggle-icon"></i>
+                    <i class="fa-solid fa-sun toggle-icon"></i>
+                    <i class="toggle-ball"></i>
+                </div>
+            </div>
+        </div>
+    </header>
     <script src="./js/index.js" type="module"></script>
 </body>
 </html>
