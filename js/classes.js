@@ -41,7 +41,7 @@ export class Review {
       }
     
     display() {
-        return `${this.user.name} rated "${this.movie.title}" ${this.#rating} stars – "${this.comment}"`;
+        return `${this.user.name} rated "${this.movie.title}" ${this.#rating} stars - "${this.comment}"`;
       }
 }
 

@@ -4,6 +4,5 @@ export function toggleTheme() {
 
     toggleBall.addEventListener('click', function(){
         headerEl.classList.toggle('light')
-        console.log(headerEl)
     })
 }
