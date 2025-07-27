@@ -44,8 +44,8 @@
     </header>
 
     <main class="main">
-        <section>
-            <h1>🎬 My Movie Library</h1>
+        <section class="main-section">
+            <h1>My Movie Library</h1>
             <form id="movie-form">
                 <input type="text" id="title" placeholder="Movie title" required />
                 <select id="genre">
@@ -64,6 +64,21 @@
                 </select>
             </div>
             <div id="movie-list"></div>
+
+
+
+          <div id="review-section" style="display:none;">
+            <h3>Add a Review</h3>
+            <form id="review-form">
+                <select id="movie-select"></select><br><br>
+                <input type="number" id="rating" placeholder="Rating (1-5)" min="1" max="5" required /><br><br>
+                <input type="text" id="comment" placeholder="Your review" required /><br><br>
+                <button type="submit">Submit Review</button>
+            </form>
+          </div>
+  
+          <div id="review-list"></div>
+  
         </section>
 
    </main>

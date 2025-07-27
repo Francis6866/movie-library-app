@@ -6,6 +6,10 @@ const user = new User("You");
 const movieList = document.getElementById("movie-list");
 const form = document.getElementById("movie-form");
 const filter = document.getElementById("filter");
+const reviewForm = document.getElementById("review-form");
+const reviewSection = document.getElementById("review-section");
+const reviewList = document.getElementById("review-list");
+const movieSelect = document.getElementById("movie-select");
 
 
 
@@ -47,7 +51,7 @@ form.addEventListener("submit", async (e) => {
 filter.addEventListener("change", displayMovies);
 
 
-
+// display movies
 function displayMovies() {
   const selectedGenre = filter.value;
   movieList.innerHTML = "";
@@ -62,11 +66,61 @@ function displayMovies() {
     div.textContent = movie.display();
     movieList.appendChild(div);
   });
+
+  updateReviewDropdown()
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', function(){
     toggleTheme()
 })
+
+// from here
+
+const reviews = []; // Will save Review instances here
+
+// Show review section when movies are added
+function updateReviewDropdown() {
+  movieSelect.innerHTML = "";
+  user.collection.forEach((movie, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = movie.title;
+    movieSelect.appendChild(option);
+  });
+
+  if (user.collection.length > 0) {
+    reviewSection.style.display = "block";
+  }
+}
+
+
+// Review form handler
+reviewForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const movieIndex = movieSelect.value;
+  const movie = user.collection[movieIndex];
+  const rating = parseInt(document.getElementById("rating").value);
+  const comment = document.getElementById("comment").value;
+
+  const review = new Review(user, movie, rating, comment);
+  reviews.push(review);
+
+//   saveData();
+  displayReviews();
+  reviewForm.reset();
+});
+
+
+// Show all reviews
+function displayReviews() {
+  reviewList.innerHTML = "<h3>Reviews</h3>";
+
+  reviews.forEach((review) => {
+    const div = document.createElement("div");
+    div.className = "movie-card";
+    div.textContent = review.display();
+    reviewList.appendChild(div);
+  });
+}
