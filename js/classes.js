@@ -1,10 +1,11 @@
 // movie class constructor
 export class Movie {
-    constructor(title, director, year, genre){
+    constructor(title, director, year, genre, poster){
         this.title = title;
         this.director = director;
         this.year = year;
         this.genre = genre;
+        this.poster = poster;
     }
 
     display() {
@@ -52,8 +53,8 @@ export class Review {
 
 // Action movie class
 export class ActionMovie extends Movie {
-    constructor(title, director, year, actionLevel){
-        super(title, director, year, 'Action')
+    constructor(title, director, year, actionLevel, poster){
+        super(title, director, year, 'Action', poster)
         this.actionLevel = actionLevel;
     }
 
@@ -65,8 +66,8 @@ export class ActionMovie extends Movie {
 
 // Comedy movie class
 export class ComedyMovie extends Movie{
-    constructor(title, director, year, humorLevel){
-        super(title, director, year, 'Comedy')
+    constructor(title, director, year, humorLevel, poster){
+        super(title, director, year, 'Comedy', poster)
         this.humorLevel = humorLevel;
     }
 

@@ -66,13 +66,18 @@ form.addEventListener("submit", async (e) => {
   
     let movie;
   
+    const poster = data.Poster !== "N/A"
+    ? data.Poster
+    : "https://via.placeholder.com/100x150?text=No+Image";
+  
     if (genre === "Action") {
-      movie = new ActionMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
-    } else if (genre === "Comedy") {
-      movie = new ComedyMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
-    } else {
-      movie = new Movie(data.Title, data.Director, data.Year, data.Genre);
+        movie = new ActionMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1), poster);
+        } else if (genre === "Comedy") {
+        movie = new ComedyMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1), poster);
+        } else {
+        movie = new Movie(data.Title, data.Director, data.Year, data.Genre, poster);
     }
+
   
     user.addMovie(movie);
     saveData();
@@ -98,8 +103,18 @@ function displayMovies() {
 
   moviesToShow.forEach(movie => {
     const div = document.createElement("div");
-    div.className = "movie-card";
-    div.textContent = movie.display();
+    // div.className = "movie-card";
+    // div.textContent = movie.display();
+    div.innerHTML = `
+                <div class="movie-row">
+                    <img src="${movie.poster}" alt="${movie.title}" class="poster" />
+                    <div>
+                    <h3>${movie.title}</h3>
+                    <p><strong>Genre:</strong> ${movie.genre}</p>
+                    <p>${movie.display()}</p>
+                    </div>
+                </div>
+                `;
     movieList.appendChild(div);
   });
 
@@ -144,7 +159,7 @@ reviewForm.addEventListener("submit", (e) => {
   const review = new Review(user, movie, rating, comment);
   reviews.push(review);
 
-  reviewList.style.display = "block";
+//   reviewList.style.display = "block";
   saveData();
   displayReviews();
   reviewForm.reset();
@@ -153,20 +168,35 @@ reviewForm.addEventListener("submit", (e) => {
 
 // Show all reviews
 function displayReviews() {
-  reviewList.innerHTML = "<h3>Reviews</h3>";
-
-  reviews.forEach((review) => {
-    const div = document.createElement("div");
-    div.className = "movie-card";
-    div.textContent = review.display();
-    reviewList.appendChild(div);
-  });
-}
+    const reviewList = document.getElementById("review-list");
+  
+    if (reviews.length === 0) {
+      reviewList.style.display = "none";
+      return;
+    }
+  
+    reviewList.style.display = "block";
+    reviewList.innerHTML = "<h3>🎤 Reviews</h3>";
+  
+    reviews.forEach((review) => {
+      const div = document.createElement("div");
+      div.className = "movie-card";
+      div.textContent = review.display();
+      reviewList.appendChild(div);
+    });
+  }
+  
 
 // save data to localStorage
 function saveData() {
     const saved = {
-      user: user.collection,
+      user: user.collection.map(m => ({
+        title: m.title,
+        director: m.director,
+        year: m.year,
+        genre: m.genre,
+        poster: m.poster
+      })),
       reviews: reviews.map(r => ({
         movieTitle: r.movie.title,
         rating: r.getRating(),
@@ -177,34 +207,40 @@ function saveData() {
     localStorage.setItem("movieLibrary", JSON.stringify(saved));
   }
   
+  
 //   load data from localStorage and rendering them if available
-  function loadData() {
+function loadData() {
     const saved = JSON.parse(localStorage.getItem("movieLibrary"));
     if (!saved) return;
   
     saved.user.forEach(data => {
       let movie;
+      const poster = data.poster || "https://via.placeholder.com/100x150?text=No+Image";
+  
       if (data.genre === "Action") {
-        movie = new ActionMovie(data.title, data.director, data.year, 5);
+        movie = new ActionMovie(data.title, data.director, data.year, 5, poster);
       } else if (data.genre === "Comedy") {
-        movie = new ComedyMovie(data.title, data.director, data.year, 5);
+        movie = new ComedyMovie(data.title, data.director, data.year, 5, poster);
       } else {
-        movie = new Movie(data.title, data.director, data.year, data.genre);
+        movie = new Movie(data.title, data.director, data.year, data.genre, poster);
       }
+  
       user.addMovie(movie);
     });
   
     saved.reviews.forEach(r => {
       const movie = user.collection.find(m => m.title === r.movieTitle);
-      const review = new Review(user, movie, r.rating, r.comment);
-      reviews.push(review);
+      if (movie) {
+        const review = new Review(user, movie, r.rating, r.comment);
+        reviews.push(review);
+      }
     });
   
-    reviewList.style.display = "block";
     displayMovies();
     displayReviews();
     updateReviewDropdown();
   }
+  
   
 
   loadData()
