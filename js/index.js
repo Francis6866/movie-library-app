@@ -122,10 +122,6 @@ function displayMovies() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function(){
-    toggleTheme()
-})
-
 // from here
 
 const reviews = []; // Will save Review instances here
@@ -241,6 +237,8 @@ function loadData() {
     updateReviewDropdown();
   }
   
-  
+document.addEventListener('DOMContentLoaded', function(){
+    toggleTheme()
+})
 
   loadData()
