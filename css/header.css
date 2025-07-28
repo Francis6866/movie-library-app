@@ -8,6 +8,7 @@
     color: white;
     height: 50px;
     padding: 10px;
+    transition: all 1s ease-in-out;
 }
 
 .header__container{
@@ -24,8 +25,9 @@
 }
 
 .header__brand a{
-    color: white;
+    color: aquamarine;
     text-decoration: none;
+    transition: all 1s ease-in-out;
 }
 
 /* main nav */

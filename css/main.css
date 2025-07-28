@@ -1,9 +1,13 @@
 .main {
     font-family: sans-serif;
     padding: 20px;
-    background: #f7f7f7;
+    /* background: #f7f7f7; */
+    background: #151515e3;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    color: aquamarine;
+    transition: all 1s ease-in-out;
   }
 
   .main-section{
@@ -72,3 +76,9 @@
     background-color: #0956a0;
   }
   
+
+  /* light theme */
+.main.light{
+    background: #f7f7f7;
+    color: black;
+}
