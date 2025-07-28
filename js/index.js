@@ -39,7 +39,7 @@ form.addEventListener("submit", async (e) => {
     movie = new Movie(data.Title, data.Director, data.Year, data.Genre);
   }
 
-  console.log(movie)
+  console.log(data)
   user.addMovie(movie);
   displayMovies();
   form.reset();
@@ -94,7 +94,8 @@ function updateReviewDropdown() {
   }
 }
 
-
+// 
+// 
 // Review form handler
 reviewForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -107,7 +108,8 @@ reviewForm.addEventListener("submit", (e) => {
   const review = new Review(user, movie, rating, comment);
   reviews.push(review);
 
-//   saveData();
+  reviewList.style.display = "block";
+  saveData();
   displayReviews();
   reviewForm.reset();
 });
@@ -124,3 +126,49 @@ function displayReviews() {
     reviewList.appendChild(div);
   });
 }
+
+// save data to localStorage
+function saveData() {
+    const saved = {
+      user: user.collection,
+      reviews: reviews.map(r => ({
+        movieTitle: r.movie.title,
+        rating: r.getRating(),
+        comment: r.comment
+      }))
+    };
+  
+    localStorage.setItem("movieLibrary", JSON.stringify(saved));
+  }
+  
+//   load data from localStorage and rendering them if available
+  function loadData() {
+    const saved = JSON.parse(localStorage.getItem("movieLibrary"));
+    if (!saved) return;
+  
+    saved.user.forEach(data => {
+      let movie;
+      if (data.genre === "Action") {
+        movie = new ActionMovie(data.title, data.director, data.year, 5);
+      } else if (data.genre === "Comedy") {
+        movie = new ComedyMovie(data.title, data.director, data.year, 5);
+      } else {
+        movie = new Movie(data.title, data.director, data.year, data.genre);
+      }
+      user.addMovie(movie);
+    });
+  
+    saved.reviews.forEach(r => {
+      const movie = user.collection.find(m => m.title === r.movieTitle);
+      const review = new Review(user, movie, r.rating, r.comment);
+      reviews.push(review);
+    });
+  
+    reviewList.style.display = "block";
+    displayMovies();
+    displayReviews();
+    updateReviewDropdown();
+  }
+  
+
+  loadData()
