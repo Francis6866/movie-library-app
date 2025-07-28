@@ -176,7 +176,7 @@ function displayReviews() {
     }
   
     reviewList.style.display = "block";
-    reviewList.innerHTML = "<h3>🎤 Reviews</h3>";
+    reviewList.innerHTML = "<h3>Reviews</h3>";
   
     reviews.forEach((review) => {
       const div = document.createElement("div");
