@@ -23,27 +23,63 @@ async function fetchMovieData(title) {
 
 
 // Add movie to collection
+// form.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+//   const title = document.getElementById("title").value;
+//   const genre = document.getElementById("genre").value;
+
+//   const data = await fetchMovieData(title);
+//   let movie;
+
+//   if (genre === "Action") {
+//     movie = new ActionMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
+//   } else if (genre === "Comedy") {
+//     movie = new ComedyMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
+//   } else {
+//     movie = new Movie(data.Title, data.Director, data.Year, data.Genre);
+//   }
+
+//   console.log(data)
+//   user.addMovie(movie);
+//   displayMovies();
+//   form.reset();
+// });
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const title = document.getElementById("title").value;
-  const genre = document.getElementById("genre").value;
-
-  const data = await fetchMovieData(title);
-  let movie;
-
-  if (genre === "Action") {
-    movie = new ActionMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
-  } else if (genre === "Comedy") {
-    movie = new ComedyMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
-  } else {
-    movie = new Movie(data.Title, data.Director, data.Year, data.Genre);
-  }
-
-  console.log(data)
-  user.addMovie(movie);
-  displayMovies();
-  form.reset();
-});
+    e.preventDefault();
+    const errorMsg = document.getElementById("error-msg");
+    errorMsg.textContent = ""; // clear any old errors
+  
+    const title = document.getElementById("title").value.trim();
+    const genre = document.getElementById("genre").value;
+  
+    if (!title) {
+      errorMsg.textContent = "Please enter a movie title.";
+      return;
+    }
+  
+    const data = await fetchMovieData(title);
+  
+    if (data.Response === "False") {
+      errorMsg.textContent = `❌ ${data.Error || "Movie not found!"}`;
+      return;
+    }
+  
+    let movie;
+  
+    if (genre === "Action") {
+      movie = new ActionMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
+    } else if (genre === "Comedy") {
+      movie = new ComedyMovie(data.Title, data.Director, data.Year, Math.floor(Math.random() * 10 + 1));
+    } else {
+      movie = new Movie(data.Title, data.Director, data.Year, data.Genre);
+    }
+  
+    user.addMovie(movie);
+    saveData();
+    displayMovies();
+    form.reset();
+  });
+  
 
 
 
