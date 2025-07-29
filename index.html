@@ -45,7 +45,7 @@
 
     <main class="main">
         <section class="main-section">
-            <div class="wrapper">
+            <!-- <div class="wrapper"> -->
                 <h1>My Movie Library</h1>
                 <form id="movie-form">
                     <input type="text" id="title" placeholder="Movie title" required />
@@ -57,15 +57,20 @@
                     <p id="error-msg" style="color: red; margin-bottom: 10px;"></p>
                     <button type="submit">Add Movie</button>
                  </form>
+
+
                 <div>
-                    <label for="filter">Filter by genre:</label>
+                    <label for="filter">Filter by genre:</label><br>
                     <select id="filter">
                         <option value="All">All</option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
                     </select>
                 </div>
+
                 <div id="movie-list"></div>
+
+
               <div id="review-section" style="display:none;">
                 <h3>Add a Review</h3>
                 <form id="review-form">
@@ -76,7 +81,7 @@
                 </form>
               </div>
               <div id="review-list" style="display:none;"></div>
-        </div>
+        <!-- </div> -->
         </section>
    </main>
     <script src="./js/index.js" type="module"></script>

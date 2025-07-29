@@ -15,9 +15,9 @@
     margin: 0 auto;
   }
 
-  .wrapper{
+  /* .wrapper{
     width: 100%;
-  }
+  } */
   
   h1 {
     text-align: center;
@@ -28,6 +28,13 @@
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  #filter,
+  #movie-list,
+  form{
+    max-width: 600px;
+    min-width: 400px;
   }
   
   .movie-card {
